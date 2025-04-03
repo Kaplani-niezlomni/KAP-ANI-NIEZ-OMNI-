@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -628,6 +627,212 @@
             })
             .addTo(gravesLayer)
             .bindPopup(`<b>${grave.title}</b><br>${grave.description}`);
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapłani Niezłomni - Prawda zapisana w ogniu</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* ... (poprzednie style pozostają bez zmian) ... */
+
+        /* Nowe style dla sekcji wsparcia */
+        .support-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #5D2906;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0e6d2;
+            font-size: 12px;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .support-box:hover {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            padding: 0;
+        }
+        
+        .support-box.expanded {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            padding: 0;
+        }
+        
+        .support-box .support-icon {
+            display: block;
+        }
+        
+        .support-box:hover .support-icon,
+        .support-box.expanded .support-icon {
+            display: none;
+        }
+        
+        .support-header {
+            background: #3a1a04;
+            color: #f0e6d2;
+            padding: 8px;
+            text-align: center;
+            font-weight: normal;
+            display: none;
+        }
+        
+        .support-content {
+            padding: 15px;
+            color: #333;
+            line-height: 1.5;
+            display: none;
+            background: rgba(240, 230, 210, 0.95);
+        }
+        
+        .support-box:hover .support-header,
+        .support-box:hover .support-content,
+        .support-box.expanded .support-header,
+        .support-box.expanded .support-content {
+            display: block;
+        }
+        
+        /* Styl dla klauzul prawnych */
+        .legal-section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #5D2906;
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .legal-section h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        
+        .legal-section h3 {
+            font-size: 1em;
+            margin-top: 20px;
+            color: #5D2906;
+        }
+        
+        .privacy-policy {
+            margin-top: 30px;
+        }
+        
+        /* ... (reszta poprzednich stylów pozostaje bez zmian) ... */
+    </style>
+</head>
+<body>
+    <!-- ... (poprzednia zawartość pozostaje bez zmian) ... -->
+
+    <!-- SEKCJA WSPARCIA - NOWA WERSJA -->
+    <div class="support-box" id="supportBox">
+        <div class="support-icon">WSPARCIE</div>
+        <div class="support-header">WSPARCIE DLA ARCHIWUM</div>
+        <div class="support-content">
+            <p>Jeśli chcesz pomóc w utrzymaniu archiwum, przekaż darowiznę na:</p>
+            
+            <div class="support-options">
+                <a href="https://www.buymeacoffee.com/twojprofil" target="_blank" class="support-btn">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Wsparcie">
+                    Wsparcie finansowe
+                </a>
+                
+                <a href="https://paypal.me/twojprofil" target="_blank" class="support-btn">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal">
+                    Przelew PayPal
+                </a>
+                
+                <div class="bank-details">
+                    <p>TRADYCYJNY PRZELEW:</p>
+                    <p>Stowarzyszenie Kapłani Niezłomni<br>
+                    <strong>PL 12 3456 7890 0000 1111 2222 3333</strong></p>
+                </div>
+            </div>
+            
+            <p class="support-note">Środki zostaną wykorzystane na:<br>
+            - Opłacenie serwera<br>
+            - Zakup domeny<br>
+            - Digitalizację dokumentów</p>
+        </div>
+    </div>
+
+    <!-- SEKCJA PRAWNA -->
+    <div class="container">
+        <section class="legal-section">
+            <h2>◈ INFORMACJE PRAWNE ◈</h2>
+            
+            <div class="copyright-info">
+                <h3>Prawa autorskie i cytowanie</h3>
+                <p>Materiały prezentowane na tej stronie mają charakter edukacyjny i historyczny. Wszystkie treści, zdjęcia i dokumenty są wykorzystywane na podstawie:</p>
+                <ul>
+                    <li>Prawa cytatu (art. 29 ust. 1 ustawy o prawie autorskim i prawach pokrewnych)</li>
+                    <li>Dozwolonego użytku dla celów naukowych i edukacyjnych (art. 27 ustawy)</li>
+                    <li>Zasady dotyczącej wykorzystania materiałów archiwalnych (art. 33 ustawy)</li>
+                </ul>
+                <p>W przypadku jakichkolwiek wątpliwości co do praw autorskich, prosimy o kontakt w celu wyjaśnienia lub ewentualnego usunięcia materiału.</p>
+            </div>
+            
+            <div class="privacy-policy">
+                <h3>Klauzula RODO</h3>
+                <p>Administratorem danych jest Stowarzyszenie Kapłani Niezłomni z siedzibą w Warszawie.</p>
+                <p><strong>Dane osobowe</strong> przetwarzane są wyłącznie w celu:</p>
+                <ul>
+                    <li>Umożliwienia kontaktu poprzez formularz</li>
+                    <li>Przesyłania informacji o działalności Stowarzyszenia (tylko za wyraźną zgodą)</li>
+                    <li>Realizacji darowizn (dla celów księgowych)</li>
+                </ul>
+                <p>Dane nie będą udostępniane podmiotom trzecim z wyjątkiem przypadków wymaganych przepisami prawa.</p>
+                <p>Każda osoba ma prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania.</p>
+                <p>Pełna polityka prywatności dostępna jest <a href="#" id="privacyPolicyLink">pod tym linkiem</a>.</p>
+            </div>
+            
+            <div class="disclaimer">
+                <h3>Zastrzeżenie prawne</h3>
+                <p>Strona ma charakter informacyjno-edukacyjny. Autorzy dołożyli wszelkich starań, aby zamieszczone informacje były zgodne z prawdą historyczną, jednak nie ponoszą odpowiedzialności za ewentualne błędy lub nieścisłości.</p>
+                <p>Materiały archiwalne mogą zawierać treści wrażliwe. Osoby, które nie ukończyły 16 roku życia powinny zapoznawać się z nimi pod opieką dorosłych.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ... (poprzedni kod mapy pozostaje bez zmian) ...
+
+        // Obsługa sekcji wsparcia
+        const supportBox = document.getElementById('supportBox');
+        
+        supportBox.addEventListener('click', function() {
+            this.classList.toggle('expanded');
+        });
+        
+        // Obsługa RODO
+        document.getElementById('privacyPolicyLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert("Pełna polityka prywatności jest dostępna w siedzibie Stowarzyszenia. Prosimy o kontakt na adres: rodo@kapelani-niezlomni.pl");
+        });
+        
+        // Zamykanie sekcji wsparcia po kliknięciu gdzie indziej
+        document.addEventListener('click', function(e) {
+            if (!supportBox.contains(e.target) {
+                supportBox.classList.remove('expanded');
+            }
         });
     </script>
 </body>
