@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kapłani Niezłomni - Prawda zapisana w ogniu</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #f0e6d2;
@@ -32,36 +33,69 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 300px;
-            background: rgba(240, 230, 210, 0.95);
-            border: 1px solid #5D2906;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 60px;
+            height: 60px;
+            background: #5D2906;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
             z-index: 1000;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
-            transform: rotate(0deg);
-            transition: all 0.3s;
-            opacity: 0.9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0e6d2;
+            font-size: 12px;
+            text-align: center;
+            padding: 5px;
         }
         
         .support-box:hover {
-            box-shadow: 0 0 15px rgba(93, 41, 6, 0.3);
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            padding: 0;
+        }
+        
+        .support-box.expanded {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            padding: 0;
+        }
+        
+        .support-box .support-icon {
+            display: block;
+        }
+        
+        .support-box:hover .support-icon,
+        .support-box.expanded .support-icon {
+            display: none;
         }
         
         .support-header {
-            background: #5D2906;
+            background: #3a1a04;
             color: #f0e6d2;
             padding: 8px;
             text-align: center;
             font-weight: normal;
-            letter-spacing: 0.5px;
+            display: none;
         }
         
         .support-content {
             padding: 15px;
             color: #333;
             line-height: 1.5;
+            display: none;
+            background: rgba(240, 230, 210, 0.95);
+        }
+        
+        .support-box:hover .support-header,
+        .support-box:hover .support-content,
+        .support-box.expanded .support-header,
+        .support-box.expanded .support-content {
+            display: block;
         }
         
         .support-options {
@@ -130,6 +164,11 @@
             padding-bottom: 8px;
             margin-top: 40px;
             font-size: 1.5em;
+        }
+        
+        h3 {
+            color: #5D2906;
+            margin-top: 25px;
         }
         
         .typewriter-text {
@@ -299,6 +338,38 @@
             padding: 20px;
             border-top: 1px solid #5D2906;
             font-size: 0.85em;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #5D2906;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-media {
+            margin: 20px 0;
+        }
+        
+        .social-media a {
+            color: #5D2906;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-media a:hover {
+            color: #3a1a04;
         }
         
         .stamp {
@@ -352,6 +423,93 @@
             margin-bottom: 30px;
         }
         
+        /* Sekcja edukacyjna */
+        .education-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 1px solid #5D2906;
+            margin-top: 40px;
+        }
+        
+        .lesson-plan {
+            margin-top: 20px;
+        }
+        
+        .lesson-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #5D2906;
+        }
+        
+        .lesson-title {
+            font-weight: bold;
+            color: #5D2906;
+        }
+        
+        .pdf-download {
+            display: inline-block;
+            background-color: #5D2906;
+            color: #f0e6d2;
+            padding: 5px 10px;
+            margin-top: 5px;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+        
+        .pdf-download:hover {
+            background-color: #3a1a04;
+        }
+        
+        /* Biografie kapłanów */
+        .priest-bio {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #5D2906;
+        }
+        
+        .bio-link {
+            color: #5D2906;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .bio-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Sekcja męczenników */
+        .martyrs-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 1px solid #5D2906;
+            margin-top: 40px;
+        }
+        
+        .martyrs-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .martyr-card {
+            width: calc(33% - 15px);
+            min-width: 250px;
+            background-color: rgba(240, 230, 210, 0.9);
+            border: 1px solid #5D2906;
+            padding: 15px;
+        }
+        
+        .martyr-name {
+            font-weight: bold;
+            color: #5D2906;
+            margin-bottom: 5px;
+        }
+        
+        .martyr-details {
+            font-size: 0.9em;
+        }
+        
         @media screen and (max-width: 768px) {
             .timeline::after {
                 left: 31px;
@@ -380,6 +538,10 @@
             
             .dachau-header {
                 flex-direction: column;
+            }
+            
+            .martyr-card {
+                width: 100%;
             }
         }
     </style>
@@ -482,14 +644,109 @@
         <section>
             <h2>◈ PORTETY NIEZŁOMNYCH ◈</h2>
             
-            <h3>Ks. Franciszek Gurgacz SJ - "Kapelan Wyklętych"</h3>
-            <p>Jezuita, kapelan Polskiej Podziemnej Armii Niepodległościowej. Aresztowany przez UB w 1949 roku. W sfingowanym procesie skazany na śmierć za "zdradę narodu polskiego". Rozstrzelany 14 września 1949 roku w więzieniu Montelupich.</p>
+            <div class="priest-bio">
+                <h3><a href="biografia-gurgacz.html" class="bio-link">Ks. Franciszek Gurgacz SJ - "Kapelan Wyklętych"</a></h3>
+                <p>Jezuita, kapelan Polskiej Podziemnej Armii Niepodległościowej. Aresztowany przez UB w 1949 roku. W sfingowanym procesie skazany na śmierć za "zdradę narodu polskiego". Rozstrzelany 14 września 1949 roku w więzieniu Montelupich.</p>
+            </div>
             
-            <h3>Ks. Roman Kotlarz - "Męczennik Radomski"</h3>
-            <p>Proboszcz z Pelagowa, który odważył się publicznie poprzeć robotnicze protesty w Radomiu w 1976 roku. Dotkliwie pobity przez SB, zmarł w niewyjaśnionych okolicznościach. Jego pogrzeb stał się manifestacją antykomunistyczną.</p>
+            <div class="priest-bio">
+                <h3><a href="biografia-kotlarz.html" class="bio-link">Ks. Roman Kotlarz - "Męczennik Radomski"</a></h3>
+                <p>Proboszcz z Pelagowa, który odważył się publicznie poprzeć robotnicze protesty w Radomiu w 1976 roku. Dotkliwie pobity przez SB, zmarł w niewyjaśnionych okolicznościach. Jego pogrzeb stał się manifestacją antykomunistyczną.</p>
+            </div>
             
-            <h3>Ks. Jerzy Popiełuszko - "Kapelan Solidarności"</h3>
-            <p>Duszpasterz ludzi pracy, symbol oporu przeciwko reżimowi. Uprowadzony i bestialsko zamordowany przez funkcjonariuszy SB w 1984 roku. Jego śmierć wstrząsnęła Polską i przyspieszyła upadek systemu.</p>
+            <div class="priest-bio">
+                <h3><a href="biografia-popieluszko.html" class="bio-link">Ks. Jerzy Popiełuszko - "Kapelan Solidarności"</a></h3>
+                <p>Duszpasterz ludzi pracy, symbol oporu przeciwko reżimowi. Uprowadzony i bestialsko zamordowany przez funkcjonariuszy SB w 1984 roku. Jego śmierć wstrząsnęła Polską i przyspieszyła upadek systemu.</p>
+            </div>
+            
+            <div class="priest-bio">
+                <h3><a href="biografia-wyszynski.html" class="bio-link">Prymas Stefan Wyszyński - "Prymas Tysiąclecia"</a></h3>
+                <p>Kardynał, prymas Polski, przywódca duchowy narodu w czasach komunizmu. Internowany w latach 1953-1956. Inicjator Wielkiej Nowenny przed Millenium Chrztu Polski. Jego niezłomna postawa dała siłę Kościołowi i narodowi.</p>
+            </div>
+        </section>
+        
+        <!-- Sekcja męczenników niemieckich i sowieckich -->
+        <section class="martyrs-section">
+            <h2>◈ KAPŁANI POMORDOWANI PRZEZ NIEMCÓW I SOWIETÓW ◈</h2>
+            <p>W czasie II wojny światowej tysiące polskich kapłanów stało się ofiarami nazistowskich Niemiec i sowieckiego reżimu. Oto niektóre z tych postaci:</p>
+            
+            <div class="martyrs-gallery">
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Maksymilian Kolbe</div>
+                    <div class="martyr-details">Franciszkanin, męczennik Auschwitz, dobrowolnie oddał życie za współwięźnia. Zmarł 14 sierpnia 1941 roku.</div>
+                </div>
+                
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Stefan Frelichowski</div>
+                    <div class="martyr-details">Duszpasterz harcerzy, więzień Dachau. Zmarł 23 lutego 1945 roku na tyfus, którym zaraził się opiekując chorymi.</div>
+                </div>
+                
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Władysław Goral</div>
+                    <div class="martyr-details">Biskup pomocniczy lubelski, aresztowany przez Gestapo w 1939 roku. Zmarł w Sachsenhausen w 1945 roku.</div>
+                </div>
+                
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Zygmunt Pisarski</div>
+                    <div class="martyr-details">Proboszcz z Gdeszyna, rozstrzelany przez Niemców 30 stycznia 1943 roku za pomoc Żydom.</div>
+                </div>
+                
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Jan Leon Ziółkowski</div>
+                    <div class="martyr-details">Proboszcz z Białegostoku, zamordowany przez NKWD w 1940 roku w ramach zbrodni katyńskiej.</div>
+                </div>
+                
+                <div class="martyr-card">
+                    <div class="martyr-name">Ks. Antoni Beszta-Borowski</div>
+                    <div class="martyr-details">Proboszcz z Bielska Podlaskiego, rozstrzelany przez Niemców 15 lipca 1943 roku wraz z 49 innymi osobami.</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sekcja edukacyjna -->
+        <section class="education-section">
+            <h2>◈ SEKCJA EDUKACYJNA DLA MŁODZIEŻY ◈</h2>
+            <p>Materiały edukacyjne dla młodzieży od 16 roku życia, przygotowane we współpracy z historykami i pedagogami.</p>
+            
+            <h3>Przykładowy plan lekcji:</h3>
+            <div class="lesson-plan">
+                <div class="lesson-item">
+                    <div class="lesson-title">Lekcja 1: Kim byli Kapłani Niezłomni?</div>
+                    <p>Wprowadzenie do tematu, definicja pojęcia, kontekst historyczny.</p>
+                    <a href="#" class="pdf-download">Pobierz materiały (PDF, 2.4MB)</a>
+                </div>
+                
+                <div class="lesson-item">
+                    <div class="lesson-title">Lekcja 2: Metody prześladowań duchowieństwa w PRL</div>
+                    <p>Inwigilacja, prowokacje, procesy pokazowe, metody pracy SB.</p>
+                    <a href="#" class="pdf-download">Pobierz materiały (PDF, 1.8MB)</a>
+                </div>
+                
+                <div class="lesson-item">
+                    <div class="lesson-title">Lekcja 3: Najważniejsze postacie</div>
+                    <p>Sylwetki ks. Popiełuszki, ks. Gurgacza, Prymasa Wyszyńskiego i innych.</p>
+                    <a href="#" class="pdf-download">Pobierz materiały (PDF, 3.1MB)</a>
+                </div>
+                
+                <div class="lesson-item">
+                    <div class="lesson-title">Lekcja 4: Kapłani-męczennicy II wojny światowej</div>
+                    <p>Duchowieństwo w obozach koncentracyjnych i łagrach.</p>
+                    <a href="#" class="pdf-download">Pobierz materiały (PDF, 2.7MB)</a>
+                </div>
+                
+                <div class="lesson-item">
+                    <div class="lesson-title">Lekcja 5: Źródła historyczne i praca z dokumentami</div>
+                    <p>Jak badać historię Kapłanów Niezłomnych? Praktyczne wskazówki.</p>
+                    <a href="#" class="pdf-download">Pobierz materiały (PDF, 1.5MB)</a>
+                </div>
+            </div>
+            
+            <h3>Dodatkowe materiały:</h3>
+            <ul>
+                <li><a href="#" class="pdf-download">Kronika prześladowań Kościoła w PRL (PDF)</a></li>
+                <li><a href="#" class="pdf-download">Słownik biograficzny duchownych ofiar komunizmu (PDF)</a></li>
+                <li><a href="#" class="pdf-download">Wywiady z żyjącymi świadkami historii (PDF + audio)</a></li>
+            </ul>
         </section>
         
         <!-- Formularz kontaktowy -->
@@ -520,34 +777,47 @@
         </section>
         
         <footer>
+            <div class="social-media">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Polityka prywatności</a>
+                <a href="#">Kontakt</a>
+                <a href="#">O projekcie</a>
+                <a href="#">Współpraca</a>
+                <a href="#">Archiwum</a>
+            </div>
+            
             <p>Strona powstała w hołdzie kapłanom, którzy oddali życie za wiarę i wolną Polskę</p>
-            <p>© 2023 Stowarzyszenie Pamięci Kapłanów Niezłomnych</p>
+            <p>© 2023 Stowarzyszenie Kapłani Niezłomni | Wszelkie prawa zastrzeżone</p>
         </footer>
     </div>
     
     <!-- SEKCJA WSPARCIA -->
-    <div class="support-box">
+    <div class="support-box" id="supportBox">
+        <div class="support-icon">WSPARCIE</div>
         <div class="support-header">WSPARCIE DLA ARCHIWUM</div>
         <div class="support-content">
             <p>Jeśli chcesz pomóc w utrzymaniu archiwum, przekaż darowiznę na:</p>
             
             <div class="support-options">
-                <!-- BuyMeACoffee - bardziej dyskretny -->
                 <a href="https://www.buymeacoffee.com/twojprofil" target="_blank" class="support-btn">
                     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Wsparcie">
                     Wsparcie finansowe
                 </a>
                 
-                <!-- PayPal -->
                 <a href="https://paypal.me/twojprofil" target="_blank" class="support-btn">
                     <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal">
                     Przelew PayPal
                 </a>
                 
-                <!-- Bank -->
                 <div class="bank-details">
                     <p>TRADYCYJNY PRZELEW:</p>
-                    <p>Stowarzyszenie Pamięci<br>
+                    <p>Stowarzyszenie Kapłani Niezłomni<br>
                     <strong>PL 12 3456 7890 0000 1111 2222 3333</strong></p>
                 </div>
             </div>
@@ -628,211 +898,23 @@
             .addTo(gravesLayer)
             .bindPopup(`<b>${grave.title}</b><br>${grave.description}`);
         });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapłani Niezłomni - Prawda zapisana w ogniu</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
-        /* ... (poprzednie style pozostają bez zmian) ... */
-
-        /* Nowe style dla sekcji wsparcia */
-        .support-box {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #5D2906;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f0e6d2;
-            font-size: 12px;
-            text-align: center;
-            padding: 5px;
-        }
         
-        .support-box:hover {
-            width: 300px;
-            height: auto;
-            border-radius: 5px;
-            padding: 0;
-        }
-        
-        .support-box.expanded {
-            width: 300px;
-            height: auto;
-            border-radius: 5px;
-            padding: 0;
-        }
-        
-        .support-box .support-icon {
-            display: block;
-        }
-        
-        .support-box:hover .support-icon,
-        .support-box.expanded .support-icon {
-            display: none;
-        }
-        
-        .support-header {
-            background: #3a1a04;
-            color: #f0e6d2;
-            padding: 8px;
-            text-align: center;
-            font-weight: normal;
-            display: none;
-        }
-        
-        .support-content {
-            padding: 15px;
-            color: #333;
-            line-height: 1.5;
-            display: none;
-            background: rgba(240, 230, 210, 0.95);
-        }
-        
-        .support-box:hover .support-header,
-        .support-box:hover .support-content,
-        .support-box.expanded .support-header,
-        .support-box.expanded .support-content {
-            display: block;
-        }
-        
-        /* Styl dla klauzul prawnych */
-        .legal-section {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #5D2906;
-            font-size: 0.8em;
-            line-height: 1.5;
-        }
-        
-        .legal-section h2 {
-            font-size: 1.2em;
-            margin-top: 0;
-        }
-        
-        .legal-section h3 {
-            font-size: 1em;
-            margin-top: 20px;
-            color: #5D2906;
-        }
-        
-        .privacy-policy {
-            margin-top: 30px;
-        }
-        
-        /* ... (reszta poprzednich stylów pozostaje bez zmian) ... */
-    </style>
-</head>
-<body>
-    <!-- ... (poprzednia zawartość pozostaje bez zmian) ... -->
-
-    <!-- SEKCJA WSPARCIA - NOWA WERSJA -->
-    <div class="support-box" id="supportBox">
-        <div class="support-icon">WSPARCIE</div>
-        <div class="support-header">WSPARCIE DLA ARCHIWUM</div>
-        <div class="support-content">
-            <p>Jeśli chcesz pomóc w utrzymaniu archiwum, przekaż darowiznę na:</p>
-            
-            <div class="support-options">
-                <a href="https://www.buymeacoffee.com/twojprofil" target="_blank" class="support-btn">
-                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Wsparcie">
-                    Wsparcie finansowe
-                </a>
-                
-                <a href="https://paypal.me/twojprofil" target="_blank" class="support-btn">
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal">
-                    Przelew PayPal
-                </a>
-                
-                <div class="bank-details">
-                    <p>TRADYCYJNY PRZELEW:</p>
-                    <p>Stowarzyszenie Kapłani Niezłomni<br>
-                    <strong>PL 12 3456 7890 0000 1111 2222 3333</strong></p>
-                </div>
-            </div>
-            
-            <p class="support-note">Środki zostaną wykorzystane na:<br>
-            - Opłacenie serwera<br>
-            - Zakup domeny<br>
-            - Digitalizację dokumentów</p>
-        </div>
-    </div>
-
-    <!-- SEKCJA PRAWNA -->
-    <div class="container">
-        <section class="legal-section">
-            <h2>◈ INFORMACJE PRAWNE ◈</h2>
-            
-            <div class="copyright-info">
-                <h3>Prawa autorskie i cytowanie</h3>
-                <p>Materiały prezentowane na tej stronie mają charakter edukacyjny i historyczny. Wszystkie treści, zdjęcia i dokumenty są wykorzystywane na podstawie:</p>
-                <ul>
-                    <li>Prawa cytatu (art. 29 ust. 1 ustawy o prawie autorskim i prawach pokrewnych)</li>
-                    <li>Dozwolonego użytku dla celów naukowych i edukacyjnych (art. 27 ustawy)</li>
-                    <li>Zasady dotyczącej wykorzystania materiałów archiwalnych (art. 33 ustawy)</li>
-                </ul>
-                <p>W przypadku jakichkolwiek wątpliwości co do praw autorskich, prosimy o kontakt w celu wyjaśnienia lub ewentualnego usunięcia materiału.</p>
-            </div>
-            
-            <div class="privacy-policy">
-                <h3>Klauzula RODO</h3>
-                <p>Administratorem danych jest Stowarzyszenie Kapłani Niezłomni z siedzibą w Warszawie.</p>
-                <p><strong>Dane osobowe</strong> przetwarzane są wyłącznie w celu:</p>
-                <ul>
-                    <li>Umożliwienia kontaktu poprzez formularz</li>
-                    <li>Przesyłania informacji o działalności Stowarzyszenia (tylko za wyraźną zgodą)</li>
-                    <li>Realizacji darowizn (dla celów księgowych)</li>
-                </ul>
-                <p>Dane nie będą udostępniane podmiotom trzecim z wyjątkiem przypadków wymaganych przepisami prawa.</p>
-                <p>Każda osoba ma prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania.</p>
-                <p>Pełna polityka prywatności dostępna jest <a href="#" id="privacyPolicyLink">pod tym linkiem</a>.</p>
-            </div>
-            
-            <div class="disclaimer">
-                <h3>Zastrzeżenie prawne</h3>
-                <p>Strona ma charakter informacyjno-edukacyjny. Autorzy dołożyli wszelkich starań, aby zamieszczone informacje były zgodne z prawdą historyczną, jednak nie ponoszą odpowiedzialności za ewentualne błędy lub nieścisłości.</p>
-                <p>Materiały archiwalne mogą zawierać treści wrażliwe. Osoby, które nie ukończyły 16 roku życia powinny zapoznawać się z nimi pod opieką dorosłych.</p>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        // ... (poprzedni kod mapy pozostaje bez zmian) ...
-
         // Obsługa sekcji wsparcia
         const supportBox = document.getElementById('supportBox');
         
-        supportBox.addEventListener('click', function() {
+        supportBox.addEventListener('click', function(e) {
+            e.stopPropagation();
             this.classList.toggle('expanded');
         });
         
-        // Obsługa RODO
-        document.getElementById('privacyPolicyLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert("Pełna polityka prywatności jest dostępna w siedzibie Stowarzyszenia. Prosimy o kontakt na adres: rodo@kapelani-niezlomni.pl");
+        // Zamykanie sekcji wsparcia po kliknięciu gdzie indziej
+        document.addEventListener('click', function() {
+            supportBox.classList.remove('expanded');
         });
         
-        // Zamykanie sekcji wsparcia po kliknięciu gdzie indziej
-        document.addEventListener('click', function(e) {
-            if (!supportBox.contains(e.target) {
-                supportBox.classList.remove('expanded');
-            }
+        // Zapobieganie zamykaniu przy kliknięciu wewnątrz
+        supportBox.querySelector('.support-content').addEventListener('click', function(e) {
+            e.stopPropagation();
         });
     </script>
 </body>
